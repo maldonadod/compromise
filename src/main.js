@@ -1,4 +1,6 @@
 import React from 'react'
+import "babel-core/register";
+import "babel-polyfill";
 import store from './store'
 import { BrowserRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom'
