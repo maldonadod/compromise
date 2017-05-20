@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import DateHeader from '../date-header'
 import Todo from '../todo/Todo'
 import TodoItem from '../todo/TodoItem'
 
@@ -17,6 +18,7 @@ class Home extends Component {
     return (
       <div>
         <h3>Home</h3>
+        <DateHeader />
         <Todo {...this.state.todo}
           TodoItem={TodoItem} />
       </div>
