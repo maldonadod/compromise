@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Todo from '../todo/Todo'
+import TodoItem from '../todo/TodoItem'
 
 class Home extends Component {
 
@@ -16,7 +17,8 @@ class Home extends Component {
     return (
       <div>
         <h3>Home</h3>
-        <Todo {...this.state.todo} />
+        <Todo {...this.state.todo}
+          TodoItem={TodoItem} />
       </div>
     )
   }

@@ -6,7 +6,8 @@ class Todo extends Component {
   render() {
     return (
       <ul>
-        {this.props.list.map((item, index) => <TodoItem key={index} {...item} />)}
+        {this.props.list.map((item, index) =>
+          <this.props.TodoItem key={index} {...item} />)}
       </ul>
     )
   }
