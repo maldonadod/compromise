@@ -1,16 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import View from './DateHeaderView'
-
-class DateHeaderContainer extends Component {
-
-  render() {
-    console.log(this.props)
-    return (
-      <View date={this.props.date} />
-    )
-  }
-}
+import {
+  createAddDayAction
+  ,createSubtractDayAction
+} from './actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -20,8 +14,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClick: () => {
-      dispatch(setVisibilityFilter(ownProps.filter))
+    sustractDay: () => {
+      dispatch(createSubtractDayAction())
+    }
+    ,addDay: () => {
+      dispatch(createAddDayAction())
     }
   }
 }
@@ -29,4 +26,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps
   , mapDispatchToProps
-)(DateHeaderContainer)
+)(View)
