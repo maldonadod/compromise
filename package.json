@@ -4,7 +4,8 @@
   "description": "My list of compromises for the day by day",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --host 127.0.0.1"
+    "start": "npm run build && NODE_ENV=production node server.js",
+    "build": "webpack --config webpack.prod.config.js"
   },
   "author": "Daniel Maldonado",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "express": "^4.15.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
