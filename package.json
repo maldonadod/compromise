@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build && NODE_ENV=production node server.js",
-    "build": "webpack --config webpack.prod.config.js"
+    "build": "webpack --config webpack.prod.config.js",
+    "start:dev": "webpack-dev-server --host=127.0.0.1"
   },
   "author": "Daniel Maldonado",
   "license": "ISC",
