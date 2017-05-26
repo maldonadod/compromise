@@ -1,7 +1,10 @@
 const path = require('path');
 const express = require('express');
+const env = require('node-env-file');
 const app = express();
+env(__dirname + '/.env');
 const PORT = process.env.PORT || 80;
+const db = require('./db');
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
