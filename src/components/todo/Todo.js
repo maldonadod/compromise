@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import TodoItem from './TodoItem'
-import Input from '../todo-input/Input'
+import TodoCreate from './TodoCreate'
 
 class Todo extends Component {
 
@@ -12,7 +12,7 @@ class Todo extends Component {
           {this.props.goals.map((item, index) =>
             <this.props.TodoItem key={index} {...item} />)}
         </ul>
-        <Input />
+        <TodoCreate  />
       </div>
     )
   }
@@ -24,8 +24,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = () => {
-  return {}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Todo);
+export default connect(mapStateToProps)(Todo);
