@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const env = require('node-env-file');
 const app = express();
-env(__dirname + '/.env_file');
+env(__dirname + '/.env_file', { raise: false });
 const PORT = process.env.PORT || 80;
 const db = require('./db');
 
