@@ -1,3 +1,4 @@
+.env_file
 .idea
 node_modules
 dist/*
