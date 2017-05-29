@@ -12,7 +12,7 @@ class Todo extends Component {
           {this.props.goals.map((item, index) =>
             <this.props.TodoItem key={index} {...item} />)}
         </ul>
-        <TodoCreate  />
+        <TodoCreate date={this.props.date} />
       </div>
     )
   }
@@ -20,7 +20,8 @@ class Todo extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    goals: state.todo.goals
+    goals: state.todo.goals,
+    date: state.date_header.date
   }
 }
 
