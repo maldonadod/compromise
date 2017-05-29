@@ -1,35 +1,76 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest, all, fork, select } from 'redux-saga/effects'
 import {
   FETCH_GOALS_SUCCEED
   ,FETCH_GOALS_FAILED
+  ,CREATE_GOAL
 } from './constants'
 import {
   ADD_DAY_ACTION
   ,SUBTRACT_DAY_ACTION
 } from '../date-header/constants'
+import {
+  getDateSelector
+} from '../date-header/selector'
 
-function fetchGoals() {
-  return fetch('/goals.json')
-    .then(res => res.json())
+function fetchGoals(query) {
+  return fetch(`/goals?created_at=${query.created_at}`)
+  .then(res => res.json())
 }
 
-function *handleFetch() {
+function saveGoal(goal) {
+  return fetch('/goals', {
+    method: 'POST',
+    body: JSON.stringify( goal ),
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+  }).then(res => res.json())
+}
+
+function *handleFetch(action) {
   try {
-      const goals = yield call(fetchGoals);
-      yield put({
-        type: FETCH_GOALS_SUCCEED,
-        goals
-      });
-   } catch (e) {
-      yield put({
-        type: FETCH_GOALS_FAILED,
-        message: e.message
-      });
-   }
+
+    let date = yield select(getDateSelector);
+    const { goals } = yield call(fetchGoals, {
+      created_at: date
+    });
+    yield put({
+      type: FETCH_GOALS_SUCCEED,
+      goals
+    });
+  } catch (e) {
+    yield put({
+      type: FETCH_GOALS_FAILED,
+      message: e.message
+    });
+  }
+}
+
+function *handleCreate(action) {
+  try {
+
+    let data = Object.assign({}, action.goal, {
+      created_at: Date.now()
+    });
+    const res = yield call(saveGoal, data);
+    //handle success
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 function *watchFetchData() {
   yield takeLatest(ADD_DAY_ACTION, handleFetch)
+  yield takeLatest(SUBTRACT_DAY_ACTION, handleFetch)
+}
+function *watchCreateData() {
+  yield takeLatest(CREATE_GOAL, handleCreate)
 }
 
-export default watchFetchData
+export default function *root() {
+  yield all([
+    fork(watchFetchData),
+    fork(watchCreateData)
+  ]);
+}
