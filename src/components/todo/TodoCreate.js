@@ -22,7 +22,9 @@ class TodoCreate extends React.Component {
 
   render() {
     return (
-      <Input onKeyDown={this.createGoal} />
+      <Input
+        onKeyDown={this.createGoal}
+        disabled={new Date(this.props.date).setHours(0,0,0,0) < new Date().setHours(0,0,0,0)} />
     )
   }
 }
