@@ -3,8 +3,15 @@ import { connect } from 'react-redux'
 import { List, Segment, Label } from 'semantic-ui-react'
 import TodoItem from './TodoItem'
 import TodoCreate from './TodoCreate'
+import {
+  requestGoalsAction
+} from './actions'
 
 class Todo extends Component {
+
+  componentDidMount() {
+    this.props.fetchGoals();
+  }
 
   render() {
     return (
@@ -28,4 +35,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Todo);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchGoals: () => dispatch(requestGoalsAction())
+  }
+}
+
+export default connect(
+  mapStateToProps
+  ,mapDispatchToProps)(Todo);

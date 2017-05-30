@@ -3,11 +3,8 @@ import {
   FETCH_GOALS_SUCCEED
   ,FETCH_GOALS_FAILED
   ,CREATE_GOAL
+  ,FETCH_GOALS_REQUESTED
 } from './constants'
-import {
-  ADD_DAY_ACTION
-  ,SUBTRACT_DAY_ACTION
-} from '../date-header/constants'
 import {
   getDateSelector
 } from '../date-header/selector'
@@ -61,8 +58,7 @@ function *handleCreate(action) {
 }
 
 function *watchFetchData() {
-  yield takeLatest(ADD_DAY_ACTION, handleFetch)
-  yield takeLatest(SUBTRACT_DAY_ACTION, handleFetch)
+  yield takeLatest(FETCH_GOALS_REQUESTED, handleFetch)
 }
 function *watchCreateData() {
   yield takeLatest(CREATE_GOAL, handleCreate)

@@ -1,5 +1,6 @@
 import {
   CREATE_GOAL
+  ,FETCH_GOALS_REQUESTED
 } from './constants'
 
 export const createGoalAction = title => {
@@ -8,5 +9,11 @@ export const createGoalAction = title => {
     goal: {
       title: title
     }
+  }
+}
+
+export const requestGoalsAction = () => {
+  return {
+    type: FETCH_GOALS_REQUESTED
   }
 }
