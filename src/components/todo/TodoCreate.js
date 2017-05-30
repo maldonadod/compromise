@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {
   createGoalAction
 } from './actions'
-import Input from '../todo-input/Input'
+import GoalInput from '../todo-input/GoalInput'
 
 class TodoCreate extends React.Component {
 
@@ -22,7 +22,7 @@ class TodoCreate extends React.Component {
 
   render() {
     return (
-      <Input
+      <GoalInput
         onKeyDown={this.createGoal}
         disabled={new Date(this.props.date).setHours(0,0,0,0) < new Date().setHours(0,0,0,0)} />
     )

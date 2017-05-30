@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Container, Header } from 'semantic-ui-react'
 import DateHeader from '../date-header'
 import Todo from '../todo/Todo'
 import TodoItem from '../todo/TodoItem'
@@ -16,12 +17,13 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Home</h3>
-        <DateHeader />
+      <Container
+        style={{marginTop: '40px'}}
+        textAlign="center">
+        <Header as="h1">Achievements for today</Header>
         <Todo {...this.state.todo}
           TodoItem={TodoItem} />
-      </div>
+      </Container>
     )
   }
 }
