@@ -20,7 +20,7 @@ class Home extends Component {
       <Container
         style={{marginTop: '40px'}}
         textAlign="center">
-        <Header as="h1">Achievements for today</Header>
+        <Header as="h1">Goals for today</Header>
         <Todo {...this.state.todo}
           TodoItem={TodoItem} />
       </Container>
