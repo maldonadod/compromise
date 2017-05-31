@@ -31,6 +31,9 @@ class Todo extends Component {
               {this.props.goals.map((item, index) =>
                 <List.Item key={index}><this.props.TodoItem {...item} /></List.Item>)}
             </List>
+
+          </Segment>
+          <Segment>
             <TodoCreate date={this.props.date} />
           </Segment>
         </Grid.Column>
