@@ -8,10 +8,11 @@ import {
   ,Grid
 } from 'semantic-ui-react'
 import TodoItem from './TodoItem'
-import TodoCreate from './TodoCreate'
+
 import {
   requestGoalsAction
 } from './actions'
+import GoalInput from '../todo-input/GoalInput'
 
 class Todo extends Component {
 
@@ -28,13 +29,17 @@ class Todo extends Component {
             <Label as='a' color='teal' ribbon>{this.props.date.toDateString()}</Label>
 
             <List divided relaxed>
-              {this.props.goals.map((item, index) =>
-                <List.Item key={index}><this.props.TodoItem {...item} /></List.Item>)}
+              {this.props.goals.map((item, index) => {
+
+                return <List.Item key={index}><this.props.TodoItem goal={item} /></List.Item>
+
+              }
+                )}
             </List>
 
           </Segment>
           <Segment>
-            <TodoCreate date={this.props.date} />
+            <GoalInput date={this.props.date} />
           </Segment>
         </Grid.Column>
       </Grid>
