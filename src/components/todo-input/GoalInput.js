@@ -1,12 +1,34 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Input } from 'semantic-ui-react'
+import TodoCreate from '../todo/TodoCreate'
 
-const GoalInput = props => (
-  <Input
-    placeholder="Goal" 
-    type="text"
-    fluid={true}
-    {...props} />
-)
+class GoalInput extends Component {
 
-export default GoalInput
+  constructor(props) {
+    super(props);
+
+    this.onKeyDown = this.onKeyDown.bind(this);
+  }
+
+  onKeyDown(e, t) {
+    if (e.keyCode == 13) {
+      const title = e.target.value;
+      e.target.value = "";
+      this.props.addGoal({
+        title
+      });
+    }
+  }
+
+  render() {
+    return (
+      <Input
+        placeholder="Goal"
+        type="text"
+        fluid
+        onKeyDown={this.onKeyDown} />
+    )
+  }
+}
+
+export default TodoCreate(GoalInput)
