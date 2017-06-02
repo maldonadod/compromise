@@ -7,6 +7,10 @@ import {
   ,UPDATE_GOAL
   ,UPDATE_GOALS_SUCCEED
   ,UPDATE_GOALS_FAILED
+  ,DELETE_GOAL
+  ,DELETE_GOALS_SUCCEED
+  ,DELETE_GOALS_FAILED
+  ,CREATE_GOALS_SUCCEED
 } from './constants'
 import {
   getDateSelector
@@ -30,13 +34,20 @@ function saveGoal(goal) {
 
 function updateGoal(goal) {
   const { _id } = goal;
-  return fetch(`goals/${_id}`, {
+  return fetch(`/goals/${_id}`, {
     method: 'PUT',
     body: JSON.stringify( goal ),
     headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
     },
+  }).then(res => res.json())
+}
+
+function deleteGoal(goal) {
+  const { _id } = goal;
+  return fetch(`/goals/${_id}`, {
+    method: 'DELETE'
   }).then(res => res.json())
 }
 
@@ -65,8 +76,13 @@ function *handleCreate(action) {
     let data = Object.assign({}, action.goal, {
       created_at: Date.now()
     });
-    const res = yield call(saveGoal, data);
-    //handle success
+    const { goal } = yield call(saveGoal, data);
+
+    yield put({
+      type: CREATE_GOALS_SUCCEED,
+      goal
+    });
+
   } catch (e) {
     console.error(e)
   }
@@ -89,6 +105,23 @@ function *handleUpdate(action) {
   }
 }
 
+function *handleDelete(action) {
+  try {
+    const { goal } = action;
+    const res = yield call(deleteGoal, goal);
+
+    yield put({
+      type: DELETE_GOALS_SUCCEED,
+      goal: goal
+    });
+  } catch (e) {
+    yield put({
+      type: DELETE_GOALS_FAILED,
+      message: e.message
+    });
+  }
+}
+
 function *watchFetchData() {
   yield takeLatest(FETCH_GOALS_REQUESTED, handleFetch)
 }
@@ -98,11 +131,15 @@ function *watchCreateData() {
 function *watchUpdateData() {
   yield takeLatest(UPDATE_GOAL, handleUpdate)
 }
+function *watchDeleteData() {
+  yield takeLatest(DELETE_GOAL, handleDelete)
+}
 
 export default function *root() {
   yield all([
     fork(watchFetchData)
     ,fork(watchCreateData)
     ,fork(watchUpdateData)
+    ,fork(watchDeleteData)
   ]);
 }

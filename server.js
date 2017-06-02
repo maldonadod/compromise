@@ -43,10 +43,11 @@ app.post('/goals', function(req, res) {
   let goal = new db.Goal(body);
   goal.save((err, goal) => {
     if (err) {res.send(err);}
-    res.send(goal);
+    res.send({
+      goal
+    });
   });
 });
-
 app.put('/goals/:id', function(req, res) {
 
   const { body } = req;
@@ -58,6 +59,15 @@ app.put('/goals/:id', function(req, res) {
     if (err) {
       return res.send(err)
     }
+    res.send({})
+  });
+});
+app.delete('/goals/:id', function(req, res) {
+
+  const { id } = req.params;
+  db.Goal.remove({ _id: id }, function (err) {
+    if (err) return res.send(err)
+
     res.send({})
   });
 });

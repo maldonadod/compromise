@@ -7,6 +7,7 @@ class TodoItem extends Component {
   constructor(props) {
     super(props);
     this.onKeyDown = this.onKeyDown.bind(this);
+    this.onDeleteClick = this.onDeleteClick.bind(this);
   }
 
   onKeyDown(e, t) {
@@ -17,15 +18,19 @@ class TodoItem extends Component {
     }
   }
 
+  onDeleteClick() {
+    this.props.deleteGoal(this.props.goal);
+  }
+
   render() {
     const { title } = this.props.goal;
     return (
       <li>
         <Input
-          autoFocus
           transparent
           fluid
           onKeyDown={this.onKeyDown}
+          action={{ icon: 'remove', size: 'small', onClick: this.onDeleteClick, color: 'red' }}
           defaultValue={title} />
       </li>
     )
