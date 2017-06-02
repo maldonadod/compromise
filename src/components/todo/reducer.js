@@ -4,6 +4,8 @@ import {
   ,CREATE_GOAL
   ,UPDATE_GOAL
   ,UPDATE_GOALS_SUCCEED
+  ,DELETE_GOALS_SUCCEED
+  ,CREATE_GOALS_SUCCEED
 } from './constants'
 const defaultState = {
   goals: []
@@ -14,11 +16,9 @@ const reducer = (state = defaultState, action) => {
     case FETCH_GOALS_SUCCEED:
       return Object.assign({}, state, action)
       break;
-    case CREATE_GOAL:
+    case CREATE_GOALS_SUCCEED:
       let goals = [...state.goals, action.goal]
-      return Object.assign({}, state, {
-        goals
-      })
+      return { ...state, goals };
       break;
     case UPDATE_GOALS_SUCCEED:
       let updated_goals = state.goals.map(goal => {
@@ -30,6 +30,10 @@ const reducer = (state = defaultState, action) => {
       return Object.assign({}, state, {
         goals: updated_goals
       })
+      break;
+    case DELETE_GOALS_SUCCEED:
+      const rest_goals = state.goals.filter(g => g._id !== action.goal._id);
+      return {...state, ...{goals: rest_goals}}
       break;
     default:
       return state
