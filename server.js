@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
 app.get('/goals', function(req, res) {
 
   let { created_at = Date.now() } = req.query;
-  
+
   var start = new Date(created_at);
   start.setHours(0,0,0,0);
 
@@ -44,6 +44,21 @@ app.post('/goals', function(req, res) {
   goal.save((err, goal) => {
     if (err) {res.send(err);}
     res.send(goal);
+  });
+});
+
+app.put('/goals/:id', function(req, res) {
+
+  const { body } = req;
+  const { id } = req.params;
+
+  db.Goal.update({
+    _id: id
+  }, body, (err) => {
+    if (err) {
+      return res.send(err)
+    }
+    res.send({})
   });
 });
 
