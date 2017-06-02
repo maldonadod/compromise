@@ -30,11 +30,8 @@ class Todo extends Component {
 
             <List divided relaxed>
               {this.props.goals.map((item, index) => {
-
-                return <List.Item key={index}><this.props.TodoItem goal={item} /></List.Item>
-
-              }
-                )}
+                return <List.Item key={item._id}><this.props.TodoItem goal={item} /></List.Item>
+              })}
             </List>
 
           </Segment>
