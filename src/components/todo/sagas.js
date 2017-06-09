@@ -19,13 +19,12 @@ import {
 } from '../date-header/selector'
 
 function fetchGoals(query) {
-  //return fetch(`/goals?created_at=${query.created_at}`)
-  return fetch(`http://localhost:8080/goals`)
+  return fetch(`/goals`)
   .then(res => res.json())
 }
 
 function saveGoal(goal) {
-  return fetch('http://localhost:8080/goals', {
+  return fetch('/goals', {
     method: 'POST',
     body: JSON.stringify( goal ),
     headers: {
@@ -37,7 +36,7 @@ function saveGoal(goal) {
 
 function updateGoal(goal) {
   const { _id } = goal;
-  return fetch(`http://localhost:8080/goals/${_id}`, {
+  return fetch(`/goals/${_id}`, {
     method: 'PUT',
     body: JSON.stringify( goal ),
     headers: {
