@@ -11,18 +11,21 @@ import {
   ,DELETE_GOALS_SUCCEED
   ,DELETE_GOALS_FAILED
   ,CREATE_GOALS_SUCCEED
+  ,DONE_UNDONE_GOAL_REQUEST
+  ,DONE_UNDONE_GOAL_SUCCEED
 } from './constants'
 import {
   getDateSelector
 } from '../date-header/selector'
 
 function fetchGoals(query) {
-  return fetch(`/goals?created_at=${query.created_at}`)
+  //return fetch(`/goals?created_at=${query.created_at}`)
+  return fetch(`http://localhost:8080/goals`)
   .then(res => res.json())
 }
 
 function saveGoal(goal) {
-  return fetch('/goals', {
+  return fetch('http://localhost:8080/goals', {
     method: 'POST',
     body: JSON.stringify( goal ),
     headers: {
@@ -34,7 +37,7 @@ function saveGoal(goal) {
 
 function updateGoal(goal) {
   const { _id } = goal;
-  return fetch(`/goals/${_id}`, {
+  return fetch(`http://localhost:8080/goals/${_id}`, {
     method: 'PUT',
     body: JSON.stringify( goal ),
     headers: {
@@ -49,6 +52,10 @@ function deleteGoal(goal) {
   return fetch(`/goals/${_id}`, {
     method: 'DELETE'
   }).then(res => res.json())
+}
+
+function doneUndoneGoal(goal) {
+  return updateGoal(goal);
 }
 
 function *handleFetch(action) {
@@ -122,6 +129,20 @@ function *handleDelete(action) {
   }
 }
 
+function *handleDoneUndone(action) {
+
+  try {
+    const res = yield call(doneUndoneGoal, action.goal);
+
+    yield put({
+      type: DONE_UNDONE_GOAL_SUCCEED,
+      goal: action.goal
+    });
+  } catch (e) {
+
+  }
+}
+
 function *watchFetchData() {
   yield takeLatest(FETCH_GOALS_REQUESTED, handleFetch)
 }
@@ -134,6 +155,9 @@ function *watchUpdateData() {
 function *watchDeleteData() {
   yield takeLatest(DELETE_GOAL, handleDelete)
 }
+function *watchDoneUndone() {
+  yield takeLatest(DONE_UNDONE_GOAL_REQUEST, handleDoneUndone)
+}
 
 export default function *root() {
   yield all([
@@ -141,5 +165,6 @@ export default function *root() {
     ,fork(watchCreateData)
     ,fork(watchUpdateData)
     ,fork(watchDeleteData)
+    ,fork(watchDoneUndone)
   ]);
 }
