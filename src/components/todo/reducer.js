@@ -6,6 +6,7 @@ import {
   ,UPDATE_GOALS_SUCCEED
   ,DELETE_GOALS_SUCCEED
   ,CREATE_GOALS_SUCCEED
+  ,DONE_UNDONE_GOAL_SUCCEED
 } from './constants'
 const defaultState = {
   goals: []
@@ -34,6 +35,17 @@ const reducer = (state = defaultState, action) => {
     case DELETE_GOALS_SUCCEED:
       const rest_goals = state.goals.filter(g => g._id !== action.goal._id);
       return {...state, ...{goals: rest_goals}}
+      break;
+    case DONE_UNDONE_GOAL_SUCCEED:
+      return Object.assign({}, state, {
+        goals: state.goals.map(goal => {
+          if (goal._id == action.goal._id) {
+            goal = {...goal, ...action.goal}
+          }
+          return goal;
+        })
+      })
+      return state;
       break;
     default:
       return state

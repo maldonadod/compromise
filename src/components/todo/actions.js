@@ -3,6 +3,7 @@ import {
   ,FETCH_GOALS_REQUESTED
   ,UPDATE_GOAL
   ,DELETE_GOAL
+  ,DONE_UNDONE_GOAL_REQUEST
 } from './constants'
 
 export const createGoalAction = goal => {
@@ -22,6 +23,20 @@ export const updateGoalAction = goal => {
 export const deleteGoalAction = goal => {
   return {
     type: DELETE_GOAL,
+    goal
+  }
+}
+
+export const doneGoalAction = goal => {
+  return {
+    type: DONE_UNDONE_GOAL_REQUEST,
+    goal
+  }
+}
+
+export const undoneGoalAction = goal => {
+  return {
+    type: DONE_UNDONE_GOAL_REQUEST,
     goal
   }
 }
