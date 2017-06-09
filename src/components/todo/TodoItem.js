@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Input } from 'semantic-ui-react'
+import { Input, Grid, Checkbox } from 'semantic-ui-react'
 import TodoCreate from './TodoCreate'
+import DoneUndone from './DoneUndone'
 
 class TodoItem extends Component {
 
@@ -23,18 +24,35 @@ class TodoItem extends Component {
   }
 
   render() {
-    const { title } = this.props.goal;
+    const { goal } = this.props;
+    const { title, status } = this.props.goal;
+    const {
+      doneGoal
+      ,undoneGoal
+    } = this.props;
+
     return (
       <li>
-        <Input
-          transparent
-          fluid
-          onKeyDown={this.onKeyDown}
-          action={{ icon: 'remove', size: 'small', onClick: this.onDeleteClick, color: 'red' }}
-          defaultValue={title} />
+        <Grid verticalAlign='middle'>
+          <Grid.Row columns={2}>
+            <Grid.Column width={1}>
+              <Checkbox checked={status} onChange={(e, element) => {
+                goal.status = element.checked;
+                element.checked ? doneGoal(goal) : undoneGoal(goal);
+              }} />
+            </Grid.Column>
+            <Grid.Column>
+              <Input
+                transparent
+                fluid
+                onKeyDown={this.onKeyDown}
+                defaultValue={title} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </li>
     )
   }
 }
 
-export default TodoCreate(TodoItem);
+export default DoneUndone(TodoCreate(TodoItem));
