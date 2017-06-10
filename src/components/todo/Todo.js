@@ -21,12 +21,13 @@ class Todo extends Component {
   }
 
   render() {
+    const date = new Date(this.props.date);
     return (
       <Grid centered columns={2}>
         <Grid.Column>
           <Segment
             textAlign="left">
-            <Label as='a' color='teal' ribbon>{this.props.date.toDateString()}</Label>
+            <Label as='a' color='teal' ribbon>{date.toDateString()}</Label>
 
             <List divided relaxed>
               {this.props.goals.map((item, index) => {
