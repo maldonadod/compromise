@@ -1,7 +1,7 @@
 import { compose, createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers'
 import createSagaMiddleware from 'redux-saga'
-import todoSaga from './components/todo/sagas'
+import rootSaga from './components/sagas'
 import persistState, { mergePersistedState } from 'redux-localstorage';
 import adapter from 'redux-localstorage/lib/adapters/localStorage';
 
@@ -20,6 +20,6 @@ const enhancer = compose(
 );
 
 const store = createStore(reducer, enhancer)
-sagaMiddleware.run(todoSaga)
+sagaMiddleware.run(rootSaga)
 
 export default store
