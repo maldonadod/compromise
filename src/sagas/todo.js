@@ -13,18 +13,18 @@ import {
   ,CREATE_GOALS_SUCCEED
   ,DONE_UNDONE_GOAL_REQUEST
   ,DONE_UNDONE_GOAL_SUCCEED
-} from '../todo/constants'
+} from '../components/todo/constants'
 import {
   getDateSelector
-} from '../date-header/selector'
+} from '../components/date-header/selector'
 
 function fetchGoals(query) {
-  return fetch(`http://localhost:8080/goals`)
+  return fetch(`/goals`)
   .then(res => res.json())
 }
 
 function saveGoal(goal) {
-  return fetch('http://localhost:8080/goals', {
+  return fetch('/goals', {
     method: 'POST',
     body: JSON.stringify( goal ),
     headers: {
@@ -36,7 +36,7 @@ function saveGoal(goal) {
 
 function updateGoal(goal) {
   const { _id } = goal;
-  return fetch(`http://localhost:8080/goals/${_id}`, {
+  return fetch(`/goals/${_id}`, {
     method: 'PUT',
     body: JSON.stringify( goal ),
     headers: {
@@ -48,7 +48,7 @@ function updateGoal(goal) {
 
 function deleteGoal(goal) {
   const { _id } = goal;
-  return fetch(`http://localhost:8080/goals/${_id}`, {
+  return fetch(`/goals/${_id}`, {
     method: 'DELETE'
   }).then(res => res.json())
 }

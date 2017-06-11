@@ -3,10 +3,10 @@ import {
   FACEBOOK_LOGIN_SUCCEED
   ,LOGIN_SUCCEED
   ,LOGIN_FAILED
-} from '../login/constants'
+} from '../components/login/constants'
 import {
   login
-} from '../login/actions'
+} from '../components/login/actions'
 
 function loginToServer(user) {
   const data = {
@@ -19,7 +19,7 @@ function loginToServer(user) {
       }
     }
   }
-  return fetch('http://localhost:8080/auth', {
+  return fetch('/auth', {
     method: 'POST',
     body: JSON.stringify( data ),
     headers: {

@@ -1,7 +1,7 @@
 import { compose, createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers'
 import createSagaMiddleware from 'redux-saga'
-import rootSaga from './components/sagas'
+import rootSaga from './sagas'
 import persistState, { mergePersistedState } from 'redux-localstorage';
 import adapter from 'redux-localstorage/lib/adapters/localStorage';
 
