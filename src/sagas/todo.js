@@ -13,10 +13,10 @@ import {
   ,CREATE_GOALS_SUCCEED
   ,DONE_UNDONE_GOAL_REQUEST
   ,DONE_UNDONE_GOAL_SUCCEED
-} from './constants'
+} from '../components/todo/constants'
 import {
   getDateSelector
-} from '../date-header/selector'
+} from '../components/date-header/selector'
 
 function fetchGoals(query) {
   return fetch(`/goals`)
@@ -158,12 +158,12 @@ function *watchDoneUndone() {
   yield takeLatest(DONE_UNDONE_GOAL_REQUEST, handleDoneUndone)
 }
 
-export default function *root() {
-  yield all([
-    fork(watchFetchData)
-    ,fork(watchCreateData)
-    ,fork(watchUpdateData)
-    ,fork(watchDeleteData)
-    ,fork(watchDoneUndone)
-  ]);
-}
+const root = [
+  fork(watchFetchData)
+  ,fork(watchCreateData)
+  ,fork(watchUpdateData)
+  ,fork(watchDeleteData)
+  ,fork(watchDoneUndone)
+];
+
+export default root

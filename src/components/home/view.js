@@ -3,6 +3,8 @@ import { Container, Header } from 'semantic-ui-react'
 import DateHeader from '../date-header'
 import Todo from '../todo/Todo'
 import TodoItem from '../todo/TodoItem'
+import MapUserToProp from '../login/mapUserToProp'
+import Login from '../login/view'
 
 class Home extends Component {
 
@@ -16,16 +18,21 @@ class Home extends Component {
   }
 
   render() {
+    const { user } = this.props;
     return (
       <Container
         style={{marginTop: '40px'}}
         textAlign="center">
-        <Header as="h1">Goals for today</Header>
-        <Todo {...this.state.todo}
-          TodoItem={TodoItem} />
+        {
+          user === null ?
+            <Login />
+          :
+            <Todo {...this.state.todo}
+              TodoItem={TodoItem} />
+        }
       </Container>
     )
   }
 }
 
-export default Home
+export default MapUserToProp(Home)
