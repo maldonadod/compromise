@@ -7,6 +7,7 @@ import {
 import {
   login
 } from '../components/login/actions'
+import URL from '../url'
 
 function loginToServer(user) {
   const data = {
@@ -19,7 +20,7 @@ function loginToServer(user) {
       }
     }
   }
-  return fetch('/auth', {
+  return fetch(`${URL}/auth`, {
     method: 'POST',
     body: JSON.stringify( data ),
     headers: {
