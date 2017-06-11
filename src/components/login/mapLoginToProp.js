@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {
-  login
+  facebook_login
 } from './actions'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (user) => dispatch(login(user))
+    login: (user) => dispatch(facebook_login(user))
   }
 }
 
