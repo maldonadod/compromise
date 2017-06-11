@@ -21,6 +21,28 @@ var GoalSchema = new Schema({
   collection: 'Goals'
 });
 
+var UserSchema = new Schema({
+  name: {
+    type: String
+  },
+  email: {
+    type: String
+  },
+  facebook_id: {
+    type: Number
+  },
+  picture: {
+    url: String
+  },
+  created_at: {
+    type: Date,
+    default: Date.now
+  }
+}, {
+  collection: 'Users'
+});
+
 module.exports = {
   Goal: mongoose.model('Goal', GoalSchema)
+  ,User: mongoose.model('User', UserSchema)
 }
