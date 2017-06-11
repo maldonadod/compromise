@@ -72,6 +72,23 @@ app.delete('/goals/:id', function(req, res) {
   });
 });
 
+app.post('/auth', function(req, res) {
+  const { data } = req.body;
+  db.User.findOne({
+    facebook_id: data.facebook_id
+  }, (err, user) => {
+    if (err) { return res.send(err) }
+    if (user) { return res.send(user) }
+    else {
+      const user = db.User(data)
+      user.save((err, user) => {
+        if (err) { return res.send(err) }
+        res.send(user)
+      })
+    }
+  });
+})
+
 app.listen(PORT, error => {
   error
   ? console.error(error)
