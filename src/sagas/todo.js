@@ -17,14 +17,15 @@ import {
 import {
   getDateSelector
 } from '../components/date-header/selector'
+import URL from '../url'
 
 function fetchGoals(query) {
-  return fetch(`/goals`)
+  return fetch(`${URL}/goals`)
   .then(res => res.json())
 }
 
 function saveGoal(goal) {
-  return fetch('/goals', {
+  return fetch(`${URL}/goals`, {
     method: 'POST',
     body: JSON.stringify( goal ),
     headers: {
@@ -36,7 +37,7 @@ function saveGoal(goal) {
 
 function updateGoal(goal) {
   const { _id } = goal;
-  return fetch(`/goals/${_id}`, {
+  return fetch(`${URL}/goals/${_id}`, {
     method: 'PUT',
     body: JSON.stringify( goal ),
     headers: {
@@ -48,7 +49,7 @@ function updateGoal(goal) {
 
 function deleteGoal(goal) {
   const { _id } = goal;
-  return fetch(`/goals/${_id}`, {
+  return fetch(`${URL}/goals/${_id}`, {
     method: 'DELETE'
   }).then(res => res.json())
 }
