@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Input, Grid, Checkbox } from 'semantic-ui-react'
-import TodoCreate from './TodoCreate'
+import mapGoalDispatchToProp from './mapGoalDispatchToProp'
 import DoneUndone from './DoneUndone'
 
 class TodoItem extends Component {
@@ -55,4 +55,4 @@ class TodoItem extends Component {
   }
 }
 
-export default DoneUndone(TodoCreate(TodoItem));
+export default DoneUndone(mapGoalDispatchToProp(TodoItem));

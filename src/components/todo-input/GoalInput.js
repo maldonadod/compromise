@@ -1,21 +1,23 @@
 import React, { Component } from 'react'
 import { Input } from 'semantic-ui-react'
-import TodoCreate from '../todo/TodoCreate'
+import mapGoalDispatchToProp from '../todo/mapGoalDispatchToProp'
+import mapUserToProp from '../login/mapUserToProp'
 
 class GoalInput extends Component {
 
   constructor(props) {
     super(props);
-
     this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   onKeyDown(e, t) {
     if (e.keyCode == 13) {
       const title = e.target.value;
+      const { user } = this.props;
       e.target.value = "";
       this.props.addGoal({
-        title
+        title,
+        user: user._id
       });
     }
   }
@@ -31,4 +33,4 @@ class GoalInput extends Component {
   }
 }
 
-export default TodoCreate(GoalInput)
+export default mapUserToProp(mapGoalDispatchToProp(GoalInput))
