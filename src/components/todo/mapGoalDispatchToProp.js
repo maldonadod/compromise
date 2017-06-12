@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default View => connect(null, mapDispatchToProps)(View)
+export default x => connect(null, mapDispatchToProps)(x)

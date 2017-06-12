@@ -38,9 +38,17 @@ app.get('/goals', function(req, res) {
 });
 app.post('/goals', function(req, res) {
 
-  const { body } = req;
+  const {
+    title,
+    status = false,
+    user
+  } = req.body;
 
-  let goal = new db.Goal(body);
+  let goal = new db.Goal({
+    title
+    ,status
+    ,user
+  });
   goal.save((err, goal) => {
     if (err) {res.send(err);}
     res.send({
