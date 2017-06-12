@@ -39,14 +39,16 @@ app.get('/goals', function(req, res) {
 app.post('/goals', function(req, res) {
 
   const {
-    title,
-    status = false,
-    user
+    title
+    ,status = false
+    ,user
+    ,created_at
   } = req.body;
 
   let goal = new db.Goal({
     title
     ,status
+    ,created_at
     ,user
   });
   goal.save((err, goal) => {
