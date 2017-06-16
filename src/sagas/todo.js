@@ -15,12 +15,15 @@ import {
   ,DONE_UNDONE_GOAL_SUCCEED
 } from '../components/todo/constants'
 import {
-  getDateSelector
-} from '../components/date-header/selector'
+  getUserSelector
+} from '../components/login/selector'
 import URL from '../url'
 
 function fetchGoals(query) {
-  return fetch(`${URL}/goals`)
+  const qs = Object.keys(query)
+  .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(query[k])}`)
+  .join('&');
+  return fetch(`${URL}/goals?${qs}`)
   .then(res => res.json())
 }
 
@@ -60,11 +63,11 @@ function doneUndoneGoal(goal) {
 
 function *handleFetch(action) {
   try {
-
-    let date = yield select(getDateSelector);
-    const { goals } = yield call(fetchGoals, {
-      created_at: date
-    });
+    const user = yield select(getUserSelector);
+    const query = {
+      user: user._id
+    }
+    const { goals } = yield call(fetchGoals, query);
     yield put({
       type: FETCH_GOALS_SUCCEED,
       goals

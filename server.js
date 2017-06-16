@@ -17,7 +17,10 @@ app.get('/', function(req, res) {
 });
 app.get('/goals', function(req, res) {
 
-  let { created_at = Date.now() } = req.query;
+  let {
+    user
+    ,created_at = Date.now()
+  } = req.query;
 
   var start = new Date(created_at);
   start.setHours(0,0,0,0);
@@ -29,7 +32,8 @@ app.get('/goals', function(req, res) {
     created_at: {
       $gte: start
       ,$lt: end
-    }
+    },
+    user
   }, (err, goals) => {
     res.send({
       goals
