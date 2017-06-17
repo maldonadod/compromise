@@ -82,9 +82,10 @@ function *handleFetch(action) {
 
 function *handleCreate(action) {
   try {
-
+    const user = yield select(getUserSelector);
     let data = Object.assign({}, action.goal, {
-      created_at: Date.now()
+      created_at: Date.now(),
+      user: user._id
     });
     const { goal } = yield call(saveGoal, data);
 

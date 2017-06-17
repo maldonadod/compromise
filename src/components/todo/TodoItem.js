@@ -13,9 +13,17 @@ class TodoItem extends Component {
 
   onKeyDown(e, t) {
     if (e.keyCode == 13) {
+      const {
+        updateGoal,
+        addGoal
+      } = this.props;
       const title = e.target.value;
       let goal = { ...this.props.goal, title }
-      this.props.updateGoal(goal);
+      if (goal._id) { updateGoal(goal) }
+      else {
+        addGoal(goal);
+        e.target.value = "";
+      }
     }
   }
 
@@ -23,32 +31,40 @@ class TodoItem extends Component {
     this.props.deleteGoal(this.props.goal);
   }
 
-  render() {
-    const { goal } = this.props;
-    const { title, status } = this.props.goal;
+  renderCheckbox(goal) {
+    if (!goal._id) { return; }
+    const { status } = this.props.goal;
     const {
       doneGoal
       ,undoneGoal
     } = this.props;
+    return (
+      <Grid.Column width={1}>
+        <Checkbox checked={status} onChange={(e, element) => {
+          goal.status = element.checked;
+          element.checked ? doneGoal(goal) : undoneGoal(goal);
+        }} />
+      </Grid.Column>
+    )
+  }
+
+  render() {
+    const {
+      goal
+    } = this.props;
+    const { title } = goal;
 
     return (
       <li>
-        <Grid verticalAlign='middle'>
-          <Grid.Row columns={2}>
-            <Grid.Column width={1}>
-              <Checkbox checked={status} onChange={(e, element) => {
-                goal.status = element.checked;
-                element.checked ? doneGoal(goal) : undoneGoal(goal);
-              }} />
-            </Grid.Column>
-            <Grid.Column>
-              <Input
-                transparent
-                fluid
-                onKeyDown={this.onKeyDown}
-                defaultValue={title} />
-            </Grid.Column>
-          </Grid.Row>
+        <Grid>
+          {this.renderCheckbox(goal)}
+          <Grid.Column width={14}>
+            <Input
+              transparent
+              fluid
+              onKeyDown={this.onKeyDown}
+              defaultValue={title} />
+          </Grid.Column>
         </Grid>
       </li>
     )

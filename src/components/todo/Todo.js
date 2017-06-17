@@ -12,7 +12,6 @@ import TodoItem from './TodoItem'
 import {
   requestGoalsAction
 } from './actions'
-import GoalInput from '../todo-input/GoalInput'
 
 class Todo extends Component {
 
@@ -20,24 +19,27 @@ class Todo extends Component {
     this.props.fetchGoals();
   }
 
+  renderGoals(goals) {
+    return (
+      goals.map((item, index) => {
+        return <List.Item key={item._id}><this.props.TodoItem goal={item} /></List.Item>
+      })
+    )
+  }
+
   render() {
     const date = new Date(this.props.date);
+    const { goals } = this.props;
     return (
       <Grid centered columns={2}>
         <Grid.Column>
           <Segment
             textAlign="left">
             <Label as='a' color='teal' ribbon>{date.toDateString()}</Label>
-
             <List divided relaxed>
-              {this.props.goals.map((item, index) => {
-                return <List.Item key={item._id}><this.props.TodoItem goal={item} /></List.Item>
-              })}
+              {this.renderGoals(goals)}
+              <List.Item key="create_goal"><this.props.TodoItem goal={{}} /></List.Item>
             </List>
-
-          </Segment>
-          <Segment>
-            <GoalInput date={this.props.date} />
           </Segment>
         </Grid.Column>
       </Grid>
