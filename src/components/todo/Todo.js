@@ -38,7 +38,7 @@ class Todo extends Component {
             <Label as='a' color='teal' ribbon>{date.toDateString()}</Label>
             <List divided relaxed>
               {this.renderGoals(goals)}
-              <List.Item key="create_goal"><this.props.TodoItem goal={{}} /></List.Item>
+              <List.Item key="create_goal"><this.props.TodoItem goal={{}} autoFocus /></List.Item>
             </List>
           </Segment>
         </Grid.Column>

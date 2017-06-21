@@ -53,13 +53,13 @@ class TodoItem extends Component {
       goal
     } = this.props;
     const { title } = goal;
-
     return (
       <li>
         <Grid>
           {this.renderCheckbox(goal)}
           <Grid.Column width={14}>
             <Input
+              autoFocus={this.props.autoFocus}
               transparent
               fluid
               onKeyDown={this.onKeyDown}
