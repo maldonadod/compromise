@@ -1,15 +1,13 @@
 import {
-  LOGIN_SUCCEED
+  SET_DATE
 } from './constants'
 const defaultState = {
-  user: null
+  date: new Date
 }
 export default function reducer(state = defaultState, action) {
   switch(action.type) {
-    case LOGIN_SUCCEED:
-      return {
-        user: action.user
-      };
+    case SET_DATE:
+      return {...state, ...{date: action.date}};
       break;
     default:
       return state;

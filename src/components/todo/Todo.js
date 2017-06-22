@@ -8,6 +8,8 @@ import {
   ,Grid
 } from 'semantic-ui-react'
 import TodoItem from './TodoItem'
+import mapSetDate from '../date/mapSetDate'
+import DayPicker from 'react-day-picker'
 
 import {
   requestGoalsAction
@@ -32,7 +34,10 @@ class Todo extends Component {
     const { goals } = this.props;
     return (
       <Grid centered columns={2}>
-        <Grid.Column>
+        <Grid.Column width={4}>
+          <DayPicker onDayClick={this.props.setDate} />
+        </Grid.Column>
+        <Grid.Column width={10}>
           <Segment
             textAlign="left">
             <Label as='a' color='teal' ribbon>{date.toDateString()}</Label>
@@ -50,7 +55,7 @@ class Todo extends Component {
 const mapStateToProps = (state) => {
   return {
     goals: state.todo.goals,
-    date: state.date_header.date
+    date: state.date.date
   }
 }
 
@@ -60,6 +65,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(
+export default mapSetDate(connect(
   mapStateToProps
-  ,mapDispatchToProps)(Todo);
+  ,mapDispatchToProps)(Todo));

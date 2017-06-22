@@ -17,6 +17,9 @@ import {
 import {
   getUserSelector
 } from '../components/login/selector'
+import {
+  getDateSelector
+} from '../components/date/selector'
 import URL from '../url'
 
 function fetchGoals(query) {
@@ -64,8 +67,10 @@ function doneUndoneGoal(goal) {
 function *handleFetch(action) {
   try {
     const user = yield select(getUserSelector);
+    const date = yield select(getDateSelector);
     const query = {
       user: user._id
+      ,created_at: date
     }
     const { goals } = yield call(fetchGoals, query);
     yield put({
@@ -149,6 +154,7 @@ function *handleDoneUndone(action) {
 
 function *watchFetchData() {
   yield takeLatest(FETCH_GOALS_REQUESTED, handleFetch)
+  yield takeLatest('SET_DATE', handleFetch)
 }
 function *watchCreateData() {
   yield takeLatest(CREATE_GOAL, handleCreate)
